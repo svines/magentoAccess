@@ -44,8 +44,8 @@ namespace MagentoAccess.Services
 				if( !string.IsNullOrWhiteSpace( this._sessionId ) && DateTime.UtcNow.Subtract( this._sessionIdCreatedAt ).TotalSeconds < SessionIdLifeTime )
 					return this._sessionId;
 
-				const int maxCheckCount = 2;
-				const int delayBeforeCheck = 120000;
+				//const int maxCheckCount = 2;
+				//const int delayBeforeCheck = 120000;
 
 				var res = string.Empty;
 
