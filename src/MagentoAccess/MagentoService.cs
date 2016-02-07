@@ -52,7 +52,7 @@ namespace MagentoAccess
 			{
 				MagentoLogger.LogTraceStarted( CreateMethodCallInfo( methodParameters, mark ) );
 
-				var pingres = await this.PingSoapAsync().ConfigureAwait( false );
+				var pingres = await this.PingSoapAsync( mark ).ConfigureAwait( false );
 				//crunch for old versions
 				var magentoServiceLowLevelSoap = MagentoServiceLowLevelSoapFactory.GetMagentoServiceLowLevelSoap( pingres.Version, true );
 
@@ -90,7 +90,7 @@ namespace MagentoAccess
 			{
 				MagentoLogger.LogTraceStarted( CreateMethodCallInfo( methodParameters, mark ) );
 
-				var pingres = await this.PingSoapAsync().ConfigureAwait( false );
+				var pingres = await this.PingSoapAsync( mark ).ConfigureAwait( false );
 				//crunch for old versions
 				var magentoServiceLowLevelSoap = MagentoServiceLowLevelSoapFactory.GetMagentoServiceLowLevelSoap( pingres.Version, true );
 
@@ -151,7 +151,7 @@ namespace MagentoAccess
 			{
 				MagentoLogger.LogTraceStarted( CreateMethodCallInfo( methodParameters, mark ) );
 
-				var pingres = await this.PingSoapAsync().ConfigureAwait( false );
+				var pingres = await this.PingSoapAsync( mark ).ConfigureAwait( false );
 				//crunch for old versions
 				var magentoServiceLowLevelSoap = MagentoServiceLowLevelSoapFactory.GetMagentoServiceLowLevelSoap( pingres.Version, true );
 
@@ -304,7 +304,7 @@ namespace MagentoAccess
 				MagentoLogger.LogTraceStarted( CreateMethodCallInfo( methodParameters, mark ) );
 
 				IMagentoServiceLowLevelSoap magentoServiceLowLevelSoap;
-				var pingres = await this.PingSoapAsync().ConfigureAwait( false );
+				var pingres = await this.PingSoapAsync( mark ).ConfigureAwait( false );
 				//crunch for old versions
 				magentoServiceLowLevelSoap = String.Equals( pingres.Edition, MagentoVersions.M_1_7_0_2, StringComparison.CurrentCultureIgnoreCase )
 				                             || String.Equals( pingres.Edition, MagentoVersions.M_1_8_1_0, StringComparison.CurrentCultureIgnoreCase )
@@ -362,7 +362,7 @@ namespace MagentoAccess
 				var dates = SplitToDates( dateFromUtc, dateToUtc, interval, intervalOverlapping );
 
 				IMagentoServiceLowLevelSoap magentoServiceLowLevelSoap;
-				var pingres = await this.PingSoapAsync().ConfigureAwait( false );
+				var pingres = await this.PingSoapAsync( mark ).ConfigureAwait( false );
 				//crunch for old versions
 				magentoServiceLowLevelSoap = String.Equals( pingres.Edition, MagentoVersions.M_1_7_0_2, StringComparison.CurrentCultureIgnoreCase )
 				                             || String.Equals( pingres.Edition, MagentoVersions.M_1_8_1_0, StringComparison.CurrentCultureIgnoreCase )
@@ -471,7 +471,7 @@ namespace MagentoAccess
 
 				IEnumerable< Product > resultProducts;
 
-				var pingres = await this.PingSoapAsync().ConfigureAwait( false );
+				var pingres = await this.PingSoapAsync( mark ).ConfigureAwait( false );
 				var magentoServiceLowLevel = MagentoServiceLowLevelSoapFactory.GetMagentoServiceLowLevelSoap( pingres.Version, true );
 				resultProducts = await this.GetProductsBySoap( magentoServiceLowLevel, includeDetails ).ConfigureAwait( false );
 
@@ -496,7 +496,7 @@ namespace MagentoAccess
 			{
 				MagentoLogger.LogTraceStarted( CreateMethodCallInfo( mark : mark ) );
 
-				var pingres = await this.PingSoapAsync().ConfigureAwait( false );
+				var pingres = await this.PingSoapAsync( mark ).ConfigureAwait( false );
 				var magentoServiceLowLevel = MagentoServiceLowLevelSoapFactory.GetMagentoServiceLowLevelSoap( pingres.Version, true );
 				var resultProducts = await FillProductDetails( magentoServiceLowLevel, products ).ConfigureAwait( false );
 
@@ -528,7 +528,7 @@ namespace MagentoAccess
 				var updateBriefInfo = PredefinedValues.NotAvailable;
 				if( inventories.Any() )
 				{
-					var pingres = await this.PingSoapAsync().ConfigureAwait( false );
+					var pingres = await this.PingSoapAsync( mark ).ConfigureAwait( false );
 					//crunch for 1702
 					updateBriefInfo = String.Equals( pingres.Version, MagentoVersions.M_1_7_0_2, StringComparison.CurrentCultureIgnoreCase ) ? await this.UpdateStockItemsBySoapByThePiece( inventories, mark ).ConfigureAwait( false ) : await this.UpdateStockItemsBySoap( inventories, MagentoServiceLowLevelSoapFactory.GetMagentoServiceLowLevelSoap( pingres.Version, true ), mark ).ConfigureAwait( false );
 				}
@@ -557,7 +557,7 @@ namespace MagentoAccess
 				{
 					if( this.UseSoapOnly )
 					{
-						var pingres = await this.PingSoapAsync().ConfigureAwait( false );
+						var pingres = await this.PingSoapAsync( mark ).ConfigureAwait( false );
 						var magentoServiceLowLevelSoap = String.Equals( pingres.Edition, MagentoVersions.M_1_7_0_2, StringComparison.CurrentCultureIgnoreCase )
 						                                 || String.Equals( pingres.Edition, MagentoVersions.M_1_8_1_0, StringComparison.CurrentCultureIgnoreCase )
 						                                 || String.Equals( pingres.Edition, MagentoVersions.M_1_9_0_1, StringComparison.CurrentCultureIgnoreCase )
